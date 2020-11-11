@@ -1,0 +1,31 @@
+(setq people '(("Андриюк" "Нейбута" 5) ("Масловский" "Нейбута" 5) ("Беккерман" "Остров" 6) ("Беккерман" "Остров" 7) ("Волков" "Остров" 9) ("Михеев" "Тихая" 12) ("Волков" "Остров" 11)))
+
+(defun sameStreet (name dataPeople)
+(cond
+((NULL dataPeople) NIL)
+((string-equal name (CADAR dataPeople)) (cons (CAR dataPeople) (sameStreet name (CDR dataPeople))))
+(T (sameStreet name (CDR dataPeople)))
+)
+)
+(defun sameName (dataPeople)
+(cond
+    ((NULL (CDR dataPeople)) NIL)
+    ((eq T (haveSameName (CAAR dataPeople) (CDR dataPeople))) (cons (cons (CAR dataPeople) (findSameName (CAAR dataPeople) (CDR dataPeople))) (sameName (CDR dataPeople))))
+    (T (sameName (CDR dataPeople)))
+)
+)
+(defun haveSameName (name dataPeople)
+(cond
+    ((NULL dataPeople) NIL)
+    ((string-equal name (CAAR dataPeople)) T)
+    ((string-not-equal name (CAAR dataPeople)) (haveSameName name (CDR dataPeople)))
+)
+)
+(defun findSameName (name dataPeople)
+(cond
+    ((NULL dataPeople) NIL)
+    ((string-equal name (CAAR dataPeople)) (cons (CAR dataPeople) (findSameName name (CDR dataPeople))))
+    ((string-not-equal name (CAAR dataPeople)) (findSameName name (CDR dataPeople)))
+)
+)
+(print(sameName(sameStreet "Остров" people)))
